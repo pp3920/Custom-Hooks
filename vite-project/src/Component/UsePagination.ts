@@ -9,9 +9,9 @@ type UsePaginationProp = {
 
 
 
-function usePagination({ totalItems, itemsPerPage = 10 }: UsePaginationProp) {
+function UsePagination({ totalItems, itemsPerPage = 10, initialPage = 1 }: UsePaginationProp) {
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(initialPage);
 
     // How many total Pages will be there
     const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -27,14 +27,16 @@ function usePagination({ totalItems, itemsPerPage = 10 }: UsePaginationProp) {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
+    }
 
-        const prevPage = () => {
+    const prevPage = () => {
             if (currentPage > 1) {
                 setCurrentPage(currentPage - 1);
             }
         }
+    
 
-        return {
+       return {
             currentPage,
             totalPages,
             startIndex,
@@ -45,7 +47,6 @@ function usePagination({ totalItems, itemsPerPage = 10 }: UsePaginationProp) {
             canNextPage: currentPage < totalPages,
             canPrevPage: currentPage > 1,
         };
-    }
 }
 
-export default usePagination;
+export default UsePagination;
